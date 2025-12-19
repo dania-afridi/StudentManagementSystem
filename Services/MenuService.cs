@@ -1,9 +1,10 @@
-﻿using System;
+﻿using StudentManagementSystem.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using StudentManagementSystem.Models;
 
 
 namespace StudentManagementSystem.Services
@@ -72,10 +73,19 @@ namespace StudentManagementSystem.Services
                 Console.Write("Enter Student Name: ");
                 name = Console.ReadLine();
 
-                if (!string.IsNullOrWhiteSpace(name))
-                    break;
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    Console.WriteLine("Name cannot be empty.");
+                    continue;
+                }
 
-                Console.WriteLine("Name cannot be empty.");
+                if (!Regex.IsMatch(name, @"^[A-Za-z ]+$"))
+                {
+                    Console.WriteLine("Name can only contain letters and spaces.");
+                    continue;
+                }
+
+                break;
             }
 
             int age;
