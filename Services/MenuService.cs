@@ -63,12 +63,23 @@ namespace StudentManagementSystem.Services
 
         private void AddStudent()
         {
-            Console.WriteLine("AddStudent called");
+            Student student = GetStudentFromInput();
+            students.Add(student);
+            Console.WriteLine("Student added successfully!");
         }
 
         private void ListStudents()
         {
-            Console.WriteLine("ListStudents called");
+            if (students.Count == 0)
+            {
+                Console.WriteLine("No students found.");
+                return;
+            }
+
+            foreach (var student in students)
+            {
+                Console.WriteLine($"Id: {student.Id}, Name: {student.Name}, Age: {student.Age}");
+            }
         }
     }
 }
