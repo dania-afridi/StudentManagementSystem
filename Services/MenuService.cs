@@ -85,6 +85,13 @@ namespace StudentManagementSystem.Services
                     continue;
                 }
 
+                int letterCount = name.Replace(" ", "").Length;
+                if (letterCount < 3)
+                {
+                    Console.WriteLine("Name must contain at least 3 letters.");
+                    continue;
+                }
+
                 break;
             }
 
