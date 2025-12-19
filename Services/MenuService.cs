@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StudentManagementSystem.Models;
+
 
 namespace StudentManagementSystem.Services
 {
     internal class MenuService
     {
+        private List<Student> students = new List<Student>();
+
         public void Start()
         {
             bool running = true;
@@ -41,6 +45,20 @@ namespace StudentManagementSystem.Services
             Console.WriteLine("2. List students");
             Console.WriteLine("3. Exit");
             Console.Write("Select option: ");
+        }
+
+        private Student GetStudentFromInput()
+        {
+            Console.Write("Enter Student Id: ");
+            int id = int.Parse(Console.ReadLine());
+
+            Console.Write("Enter Student Name: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Enter Student Age: ");
+            int age = int.Parse(Console.ReadLine());
+
+            return new Student(id, name, age);
         }
 
         private void AddStudent()
