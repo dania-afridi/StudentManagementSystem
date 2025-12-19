@@ -49,17 +49,53 @@ namespace StudentManagementSystem.Services
 
         private Student GetStudentFromInput()
         {
-            Console.Write("Enter Student Id: ");
-            int id = int.Parse(Console.ReadLine());
+            int id;
+            while(true)
+            {
+                Console.Write("Enter Student Id: ");
+                if(int.TryParse(Console.ReadLine(), out id) && id > 0)
+                {
+                    if (!IsDuplicateId(id))
+                        break;
 
-            Console.Write("Enter Student Name: ");
-            string name = Console.ReadLine();
+                    Console.WriteLine("Id already exists. Try another.");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Id. Enter a positive number.");
+                }
+            }
 
-            Console.Write("Enter Student Age: ");
-            int age = int.Parse(Console.ReadLine());
+            string name;
+            while (true)
+            {
+                Console.Write("Enter Student Name: ");
+                name = Console.ReadLine();
+
+                if (!string.IsNullOrWhiteSpace(name))
+                    break;
+
+                Console.WriteLine("Name cannot be empty.");
+            }
+
+            int age;
+            while (true)
+            {
+                Console.Write("Enter Student Age: ");
+                if (int.TryParse(Console.ReadLine(), out age) && age > 0)
+                    break;
+
+                Console.WriteLine("Invalid age. Enter a positive number.");
+            }
 
             return new Student(id, name, age);
         }
+
+        private bool IsDuplicateId(int id)
+        {
+            return students.Any(s => s.Id == id);
+        }
+
 
         private void AddStudent()
         {
