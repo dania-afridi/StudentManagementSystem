@@ -153,11 +153,21 @@ namespace StudentManagementSystem.Services
             while (true)
             {
                 Console.Write("Enter minimum age: ");
-                if (int.TryParse(Console.ReadLine(), out minAge) && minAge > 0)
-                    break;
+                if (!int.TryParse(Console.ReadLine(), out minAge))
+                {
+                    Console.WriteLine("Invalid age. Enter a number.");
+                    continue;
+                }
 
-                Console.WriteLine("Invalid age. Please enter a positive number.");
+                if (minAge <= 0)
+                {
+                    Console.WriteLine("Age must be greater than zero.");
+                    continue;
+                }
+
+                break;
             }
+
 
             var result = students
                 .Where(s => s.Age >= minAge)
