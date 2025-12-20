@@ -48,6 +48,7 @@ namespace StudentManagementSystem.Services
             Console.Write("Select option: ");
         }
 
+        //******* Get new student detail *********//
         private Student GetStudentFromInput()
         {
             int id;
@@ -108,12 +109,13 @@ namespace StudentManagementSystem.Services
             return new Student(id, name, age);
         }
 
+        //******* Check student Id if already exist *********//
         private bool IsDuplicateId(int id)
         {
             return students.Any(s => s.Id == id);
         }
 
-
+        //******* Add a new student *********//
         private void AddStudent()
         {
             Student student = GetStudentFromInput();
@@ -121,18 +123,52 @@ namespace StudentManagementSystem.Services
             Console.WriteLine("Student added successfully!");
         }
 
+        //******* List of students sort by Name *********//
         private void ListStudents()
         {
-            if (students.Count == 0)
+            if (!students.Any())
             {
                 Console.WriteLine("No students found.");
                 return;
             }
+            var orderedStudents = students
+           .OrderBy(s => s.Name)
+           .ToList();
 
-            foreach (var student in students)
+            Console.WriteLine("\n--- Student List ---");
+
+            foreach (var student in orderedStudents)
             {
-                Console.WriteLine($"Id: {student.Id}, Name: {student.Name}, Age: {student.Age}");
+                Console.WriteLine($"Id: {student.Id} | Name: {student.Name} | Age: {student.Age}");
             }
         }
+        //******* List of students filter by age *********//
+        private void ListStudentsAboveAge()
+        {
+            Console.Write("Enter minimum age: ");
+            if (!int.TryParse(Console.ReadLine(), out int minAge))
+            {
+                Console.WriteLine("Invalid age.");
+                return;
+            }
+
+            var result = students
+                .Where(s => s.Age >= minAge)
+                .OrderBy(s => s.Name)
+                .ToList();
+
+            if (!result.Any())
+            {
+                Console.WriteLine("No students match the criteria.");
+                return;
+            }
+
+            foreach (var student in result)
+            {
+                Console.WriteLine(
+                    $"Id: {student.Id} | Name: {student.Name} | Age: {student.Age}");
+            }
+        }
+
     }
 }
