@@ -149,11 +149,14 @@ namespace StudentManagementSystem.Services
         //******* List of students filter by age *********//
         private void ListStudentsAboveAge()
         {
-            Console.Write("Enter minimum age: ");
-            if (!int.TryParse(Console.ReadLine(), out int minAge))
+            int minAge;
+            while (true)
             {
-                Console.WriteLine("Invalid age.");
-                return;
+                Console.Write("Enter minimum age: ");
+                if (int.TryParse(Console.ReadLine(), out minAge) && minAge > 0)
+                    break;
+
+                Console.WriteLine("Invalid age. Please enter a positive number.");
             }
 
             var result = students
