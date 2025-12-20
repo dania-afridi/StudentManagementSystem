@@ -31,6 +31,9 @@ namespace StudentManagementSystem.Services
                         ListStudents();
                         break;
                     case "3":
+                        ListStudentsAboveAge();
+                        break;
+                    case "4":
                         running = false;
                         break;
                     default:
@@ -44,7 +47,8 @@ namespace StudentManagementSystem.Services
         {
             Console.WriteLine("1. Add student");
             Console.WriteLine("2. List students");
-            Console.WriteLine("3. Exit");
+            Console.WriteLine("3. List students above age");
+            Console.WriteLine("4. Exit");
             Console.Write("Select option: ");
         }
 
