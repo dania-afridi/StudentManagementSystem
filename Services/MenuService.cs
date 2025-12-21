@@ -146,6 +146,12 @@ namespace StudentManagementSystem.Services
                 Console.WriteLine($"Id: {student.Id} | Name: {student.Name} | Age: {student.Age}");
             }
         }
+        //******* Find student by Id *********//
+        private Student FindStudentById(int id)
+        {
+            return students.FirstOrDefault(s => s.Id == id);
+        }
+
         //******* List of students filter by age *********//
         private void ListStudentsAboveAge()
         {
