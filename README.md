@@ -1,6 +1,12 @@
-# Student Management System (Console)
-
+# Student Management System (Console App)
 Simple C# console application to manage students.
+
+## Description
+A C# console application to manage students 
+using a menu-driven interface.
+It supports full CRUD operations with input validation and 
+persistent storage.
+
 
 ## Features
 - Add student with validation
@@ -11,9 +17,11 @@ Simple C# console application to manage students.
 - Persistent storage using JSON file
 - Menu-based navigation
 
-## Tech
+## Tech Stack
 - C#
 - .NET Console App
+- LINQ
+- JSON for data storage
 - Git / GitHub
 
 ## How to Run
