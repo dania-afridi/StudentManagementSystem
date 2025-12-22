@@ -6,6 +6,8 @@ Simple C# console application to manage students.
 - Add student with input validation
 - List students sorted by name
 - Filter students by minimum age
+- Update student by ID
+- Delete student by ID
 - Menu-based navigation
 - In-memory storage using List
 
