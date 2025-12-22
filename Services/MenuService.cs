@@ -34,6 +34,12 @@ namespace StudentManagementSystem.Services
                         ListStudentsAboveAge();
                         break;
                     case "4":
+                        UpdateStudent();
+                        break;
+                    case "5":
+                        DeleteStudent();
+                        break;
+                    case "6":
                         running = false;
                         break;
                     default:
@@ -48,7 +54,9 @@ namespace StudentManagementSystem.Services
             Console.WriteLine("1. Add student");
             Console.WriteLine("2. List students");
             Console.WriteLine("3. List students above age");
-            Console.WriteLine("4. Exit");
+            Console.WriteLine("4. Update student");
+            Console.WriteLine("5. Delete student");
+            Console.WriteLine("6. Exit");
             Console.Write("Select option: ");
         }
 
@@ -192,6 +200,62 @@ namespace StudentManagementSystem.Services
                     $"Id: {student.Id} | Name: {student.Name} | Age: {student.Age}");
             }
         }
+
+        //******* Update Student *********//
+        private void UpdateStudent()
+        {
+            Console.Write("Enter Student Id to update: ");
+            if (!int.TryParse(Console.ReadLine(), out int id))
+            {
+                Console.WriteLine("Invalid Id.");
+                return;
+            }
+
+            Student student = FindStudentById(id);
+            if (student == null)
+            {
+                Console.WriteLine("Student not found.");
+                return;
+            }
+
+            Console.Write("Enter new name: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Enter new age: ");
+            if (!int.TryParse(Console.ReadLine(), out int age) || age <= 0)
+            {
+                Console.WriteLine("Invalid age.");
+                return;
+            }
+
+            student.Name = name;
+            student.Age = age;
+
+            Console.WriteLine("Student updated successfully.");
+        }
+
+        //******* Delete Student *********//
+
+        private void DeleteStudent()
+        {
+            Console.Write("Enter Student Id to delete: ");
+            if (!int.TryParse(Console.ReadLine(), out int id))
+            {
+                Console.WriteLine("Invalid Id.");
+                return;
+            }
+
+            Student student = FindStudentById(id);
+            if (student == null)
+            {
+                Console.WriteLine("Student not found.");
+                return;
+            }
+
+            students.Remove(student);
+            Console.WriteLine("Student deleted successfully.");
+        }
+
 
     }
 }
