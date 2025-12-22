@@ -1,18 +1,25 @@
 ﻿using StudentManagementSystem.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 
 namespace StudentManagementSystem.Services
 {
+    ///******* MenuService to handle user interactions *********//
     internal class MenuService
     {
-        private List<Student> students = new List<Student>();
+        //******* Fields *********//
+        private readonly FileService fileService;
+        private List<Student> students;
 
+        //******* Constructor to initialize FileService and load students *********//
+        public MenuService()
+        {
+            fileService = new FileService();
+            students = fileService.LoadStudents();
+        }
+
+        //******* Start the menu loop *********//
         public void Start()
         {
             bool running = true;
@@ -48,7 +55,7 @@ namespace StudentManagementSystem.Services
                 }
             }
         }
-
+        //******* Display menu options *********//
         private void ShowMenu()
         {
             Console.WriteLine("1. Add student");
@@ -148,6 +155,7 @@ namespace StudentManagementSystem.Services
         {
             Student student = GetStudentFromInput();
             students.Add(student);
+            fileService.SaveStudents(students);
             Console.WriteLine("Student added successfully!");
         }
 
@@ -229,10 +237,11 @@ namespace StudentManagementSystem.Services
             student.Name = name;
             student.Age = age;
 
+            fileService.SaveStudents(students);
             Console.WriteLine("Student updated successfully.");
         }
 
-        //******* Delete Student *********//
+        //******* Remove Student *********//
 
         private void DeleteStudent()
         {
@@ -247,6 +256,7 @@ namespace StudentManagementSystem.Services
             }
 
             students.Remove(student);
+            fileService.SaveStudents(students);
             Console.WriteLine("Student deleted successfully.");
         }
 
