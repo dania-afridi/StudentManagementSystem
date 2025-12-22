@@ -63,27 +63,45 @@ namespace StudentManagementSystem.Services
         //******* Get new student detail *********//
         private Student GetStudentFromInput()
         {
-            int id;
-            while(true)
+            int Id;
+            Console.Write("Enter Student Id: ");
+            ReadStudentId(out Id);
+            while (IsDuplicateId(Id))
             {
-                Console.Write("Enter Student Id: ");
-                if(int.TryParse(Console.ReadLine(), out id) && id > 0)
-                {
-                    if (!IsDuplicateId(id))
-                        break;
+                Console.WriteLine("Id already exists. Try another.");
+                ReadStudentId(out Id);
+            }
 
-                    Console.WriteLine("Id already exists. Try another.");
+            string Name;
+            Console.Write("Enter Student Name: ");
+            ReadStudentName(out Name);
+
+            int Age;
+            Console.Write("Enter Student Age: ");
+            ReadStudentAge(out Age);
+
+            return new Student(Id, Name, Age);
+        }
+        //******* Read student Id *********//
+        private void ReadStudentId(out int id)
+        {
+            while (true)
+            {
+                if(!(int.TryParse(Console.ReadLine(), out id) && id > 0))
+                {
+                    Console.WriteLine("Invalid Id. Enter a positive number."); 
                 }
                 else
                 {
-                    Console.WriteLine("Invalid Id. Enter a positive number.");
+                    break;
                 }
             }
-
-            string name;
+        }
+        //******* Read student Name *********//
+        private void ReadStudentName(out string name)
+        {
             while (true)
             {
-                Console.Write("Enter Student Name: ");
                 name = Console.ReadLine();
 
                 if (string.IsNullOrWhiteSpace(name))
@@ -107,20 +125,18 @@ namespace StudentManagementSystem.Services
 
                 break;
             }
-
-            int age;
+        }
+        //******* Read student Age *********//
+        private void ReadStudentAge(out int age)
+        {
             while (true)
             {
-                Console.Write("Enter Student Age: ");
                 if (int.TryParse(Console.ReadLine(), out age) && age > 0)
                     break;
 
                 Console.WriteLine("Invalid age. Enter a positive number.");
             }
-
-            return new Student(id, name, age);
         }
-
         //******* Check student Id if already exist *********//
         private bool IsDuplicateId(int id)
         {
@@ -167,17 +183,7 @@ namespace StudentManagementSystem.Services
             while (true)
             {
                 Console.Write("Enter minimum age: ");
-                if (!int.TryParse(Console.ReadLine(), out minAge))
-                {
-                    Console.WriteLine("Invalid age. Enter a number.");
-                    continue;
-                }
-
-                if (minAge <= 0)
-                {
-                    Console.WriteLine("Age must be greater than zero.");
-                    continue;
-                }
+                ReadStudentAge(out minAge);
 
                 break;
             }
@@ -205,11 +211,7 @@ namespace StudentManagementSystem.Services
         private void UpdateStudent()
         {
             Console.Write("Enter Student Id to update: ");
-            if (!int.TryParse(Console.ReadLine(), out int id))
-            {
-                Console.WriteLine("Invalid Id.");
-                return;
-            }
+            ReadStudentId(out int id);
 
             Student student = FindStudentById(id);
             if (student == null)
@@ -219,14 +221,10 @@ namespace StudentManagementSystem.Services
             }
 
             Console.Write("Enter new name: ");
-            string name = Console.ReadLine();
+            ReadStudentName(out string name);
 
             Console.Write("Enter new age: ");
-            if (!int.TryParse(Console.ReadLine(), out int age) || age <= 0)
-            {
-                Console.WriteLine("Invalid age.");
-                return;
-            }
+            ReadStudentAge(out int age);
 
             student.Name = name;
             student.Age = age;
@@ -239,11 +237,7 @@ namespace StudentManagementSystem.Services
         private void DeleteStudent()
         {
             Console.Write("Enter Student Id to delete: ");
-            if (!int.TryParse(Console.ReadLine(), out int id))
-            {
-                Console.WriteLine("Invalid Id.");
-                return;
-            }
+            ReadStudentId(out int id);
 
             Student student = FindStudentById(id);
             if (student == null)
