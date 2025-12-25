@@ -6,11 +6,23 @@ using System.Text.RegularExpressions;
 namespace StudentManagementSystem.Services
 {
     ///******* MenuService to handle user interactions *********//
-    internal class MenuService
+    public class MenuService
     {
         //******* Fields *********//
         private readonly FileService fileService;
         private List<Student> students;
+
+        //******* Test database read functionality *********//
+        private void TestDbRead()
+        {
+            StudentDbService dbService = new StudentDbService();
+            var students = dbService.GetAllStudents();
+
+            foreach (var student in students)
+            {
+                Console.WriteLine($"{student.Id} - {student.Name} - {student.Age}");
+            }
+        }
 
         //******* Constructor to initialize FileService and load students *********//
         public MenuService()
@@ -22,6 +34,7 @@ namespace StudentManagementSystem.Services
         //******* Start the menu loop *********//
         public void Start()
         {
+            //TestDbRead();
             bool running = true;
 
             while (running)
