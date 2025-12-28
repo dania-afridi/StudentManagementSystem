@@ -35,5 +35,72 @@ namespace StudentManagementSystem.Services
 
             return students;
         }
+        //******* Additional CRUD methods can be implemented here *********//
+        
+        //** ADD: Add a new student
+        public bool AddStudent(Student student)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        string query =
+                            "INSERT INTO Students (Name, Age) VALUES (@Name, @Age)";
+
+                        SqlCommand command = new SqlCommand(query, connection);
+
+                        command.Parameters.AddWithValue("@Name", student.Name);
+                        command.Parameters.AddWithValue("@Age", student.Age);
+
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                    return true;
+            }
+            catch (SqlException ex) when(ex.Number == 2627 || ex.Number == 2601)
+            {
+                    // Unique constraint violation
+                    return false;
+            }
+        }
+        /*
+        //** UPDATE: Update an existing student
+        public bool UpdateStudent(Student student)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query =
+                    "UPDATE Students SET Name = @Name, Age = @Age WHERE Id = @Id";
+
+                SqlCommand command = new SqlCommand(query, connection);
+
+                command.Parameters.AddWithValue("@Id", student.Id);
+                command.Parameters.AddWithValue("@Name", student.Name);
+                command.Parameters.AddWithValue("@Age", student.Age);
+
+                connection.Open();
+                int rowsAffected = command.ExecuteNonQuery();
+
+                return rowsAffected > 0;
+            }
+        }
+
+        //** DELETE: Delete a student by ID
+        public bool DeleteStudent(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "DELETE FROM Students WHERE Id = @Id";
+
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Id", id);
+
+                connection.Open();
+                int rowsAffected = command.ExecuteNonQuery();
+
+                return rowsAffected > 0;
+            }
+        }
+        */
     }
 }
