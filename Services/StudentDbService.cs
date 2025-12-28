@@ -63,7 +63,7 @@ namespace StudentManagementSystem.Services
                     return false;
             }
         }
-        /*
+        
         //** UPDATE: Update an existing student
         public bool UpdateStudent(Student student)
         {
@@ -101,6 +101,20 @@ namespace StudentManagementSystem.Services
                 return rowsAffected > 0;
             }
         }
-        */
+        //** TEST: Test the SQL operations */
+        public void TestSQL()
+        {
+            // Insert
+            bool inserted = AddStudent(new Student(0, "TestUser", 25));
+            Console.WriteLine(inserted ? "Inserted" : "Duplicate");
+
+            // Update
+            bool updated = UpdateStudent(new Student(1, "UpdatedName", 30));
+            Console.WriteLine(updated ? "Updated" : "Not found");
+
+            // Delete
+            bool deleted = DeleteStudent(1);
+            Console.WriteLine(deleted ? "Deleted" : "Not found");
+        }
     }
 }
