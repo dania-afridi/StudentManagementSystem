@@ -28,6 +28,11 @@ persistent storage.
 - Week 1–2: JSON file storage using FileService
 - SQL Server integration introduced but not yet wired to menu
 
+- ## SQL Learning (Isolation)
+- Parameterized INSERT, UPDATE, DELETE
+- Unique constraint handling
+- Tested in StudentDbService only
+
 ## How to Run
 1. Clone the repository
 2. Open solution in Visual Studio 2022
