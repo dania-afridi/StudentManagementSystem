@@ -4,10 +4,10 @@ class Program
 {
     static void Main()
     {
-       // MenuService menuService = new MenuService();
-       // menuService.Start();
+        MenuService menuService = new MenuService();
+        menuService.Start();
 
-        StudentDbService db = new StudentDbService();
-        db.RunSqlTests();
+       // StudentDbService db = new StudentDbService();
+       // db.RunSqlTests();
     }
 }
