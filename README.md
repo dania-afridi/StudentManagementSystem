@@ -38,6 +38,9 @@ persistent storage.
 - Handled UNIQUE constraint violations safely
 - Tested SQL logic in isolation without affecting menu flow
 
+## SQL (Week 2 Day 6)
+- Switched student listing to read from SQL Server
+- Write operations still use existing storage
 
 ## How to Run
 1. Clone the repository
