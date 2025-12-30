@@ -166,12 +166,6 @@ namespace StudentManagementSystem.Services
                 Console.WriteLine("Invalid age. Enter a positive number.");
             }
         }
-        //******* Check student Id if already exist *********//
-        private bool IsDuplicateId(int id)
-        {
-            return students.Any(s => s.Id == id);
-        }
-
         //******* Add a new student *********//
         private void AddStudent()
         {
