@@ -91,6 +91,7 @@ namespace StudentManagementSystem.Services
         //******* Get new student detail *********//
         private Student GetStudentFromInput()
         {
+            /*
             int Id;
             Console.Write("Enter Student Id: ");
             ReadStudentId(out Id);
@@ -99,7 +100,7 @@ namespace StudentManagementSystem.Services
                 Console.WriteLine("Id already exists. Try another.");
                 ReadStudentId(out Id);
             }
-
+            */
             string Name;
             Console.Write("Enter Student Name: ");
             ReadStudentName(out Name);
@@ -108,7 +109,7 @@ namespace StudentManagementSystem.Services
             Console.Write("Enter Student Age: ");
             ReadStudentAge(out Age);
 
-            return new Student(Id, Name, Age);
+            return new Student(0, Name, Age);
         }
         //******* Read student Id *********//
         private void ReadStudentId(out int id)
