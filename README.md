@@ -28,10 +28,16 @@ persistent storage.
 - Week 1–2: JSON file storage using FileService
 - SQL Server integration introduced but not yet wired to menu
 
-- ## SQL Learning (Isolation)
+## SQL Learning (Isolation)
 - Parameterized INSERT, UPDATE, DELETE
 - Unique constraint handling
 - Tested in StudentDbService only
+ 
+## SQL (Week 2 Day 5)
+- Implemented parameterized INSERT and SELECT using ADO.NET
+- Handled UNIQUE constraint violations safely
+- Tested SQL logic in isolation without affecting menu flow
+
 
 ## How to Run
 1. Clone the repository
