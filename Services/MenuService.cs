@@ -37,7 +37,7 @@ namespace StudentManagementSystem.Services
             //TestDbRead();
            // StudentDbService db = new StudentDbService();
 
-           //db.AddStudent(new Student(0, "Test User", 25));
+           // db.AddStudent(new Student(0, "Test User", 25));
             //db.UpdateStudent(new Student(1, "Updated Name", 30));
             //db.DeleteStudent(5);
             bool running = true;

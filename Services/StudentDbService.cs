@@ -116,5 +116,27 @@ namespace StudentManagementSystem.Services
             bool deleted = DeleteStudent(1);
             Console.WriteLine(deleted ? "Deleted" : "Not found");
         }
+        //** RUN: Run SQL tests */
+        public void RunSqlTests()
+        {
+            Console.WriteLine("---- SQL TEST START ----");
+
+            // 1. INSERT
+            var student = new Student(0, "Sql Test User", 22);
+            bool added = AddStudent(student);
+            Console.WriteLine(added ? "Insert OK" : "Insert FAILED (duplicate)");
+
+            // 2. READ
+            var students = GetAllStudents();
+            Console.WriteLine($"Total students in DB: {students.Count}");
+
+            foreach (var s in students)
+            {
+                Console.WriteLine($"{s.Id} | {s.Name} | {s.Age}");
+            }
+
+            Console.WriteLine("---- SQL TEST END ----");
+        }
+
     }
 }
