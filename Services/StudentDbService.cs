@@ -23,13 +23,11 @@ namespace StudentManagementSystem.Services
 
                 while (reader.Read())
                 {
-                    Student student = new Student(
+                    students.Add(new Student(
                         reader.GetInt32(0),
                         reader.GetString(1),
                         reader.GetInt32(2)
-                    );
-
-                    students.Add(student);
+                    ));
                 }
             }
 

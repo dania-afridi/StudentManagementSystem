@@ -27,8 +27,11 @@ namespace StudentManagementSystem.Services
         //******* Constructor to initialize FileService and load students *********//
         public MenuService()
         {
-            fileService = new FileService();
-            students = fileService.LoadStudents();
+             fileService = new FileService();
+            // students = fileService.LoadStudents();
+            StudentDbService db = new StudentDbService();
+            var students = db.GetAllStudents();
+
         }
 
         //******* Start the menu loop *********//
