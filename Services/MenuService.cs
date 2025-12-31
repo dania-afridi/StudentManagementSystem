@@ -178,7 +178,10 @@ namespace StudentManagementSystem.Services
         //******* List of students sort by Name *********//
         private void ListStudents()
         {
-            if (!students.Any())
+            StudentDbService db = new StudentDbService();
+            var students = db.GetAllStudents();
+
+            if (students == null || students.Count == 0)
             {
                 Console.WriteLine("No students found.");
                 return;
