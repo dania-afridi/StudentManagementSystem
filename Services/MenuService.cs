@@ -270,7 +270,8 @@ namespace StudentManagementSystem.Services
         {
             Console.Write("Enter Student Id to delete: ");
             ReadStudentId(out int id);
-
+            StudentDbService db = new StudentDbService();
+            var students = db.GetAllStudents();
             Student student = FindStudentById(id);
             if (student == null)
             {
