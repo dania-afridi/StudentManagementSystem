@@ -200,6 +200,8 @@ namespace StudentManagementSystem.Services
         //******* Find student by Id *********//
         private Student FindStudentById(int id)
         {
+            StudentDbService db = new StudentDbService();
+            var students = db.GetAllStudents();
             return students.FirstOrDefault(s => s.Id == id);
         }
 
