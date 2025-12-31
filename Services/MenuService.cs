@@ -215,6 +215,8 @@ namespace StudentManagementSystem.Services
                 break;
             }
 
+            StudentDbService db = new StudentDbService();
+            var students = db.GetAllStudents();
 
             var result = students
                 .Where(s => s.Age >= minAge)
