@@ -36,29 +36,27 @@ namespace StudentManagementSystem.Services
         //******* Additional CRUD methods can be implemented here *********//
         
         //** ADD: Add a new student
-        public bool AddStudent(Student student)
+        public void AddStudent(Student student)
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                    {
-                        string query =
-                            "INSERT INTO Students (Name, Age) VALUES (@Name, @Age)";
+                using SqlConnection connection = new SqlConnection(connectionString);
+                connection.Open();
+                string query =
+                    @"INSERT INTO Students (Name, Age)
+                      VALUES (@Name, @Age)";
 
-                        SqlCommand command = new SqlCommand(query, connection);
+                using SqlCommand cmd = new SqlCommand(query, connection);
 
-                        command.Parameters.AddWithValue("@Name", student.Name);
-                        command.Parameters.AddWithValue("@Age", student.Age);
+                cmd.Parameters.AddWithValue("@Name", student.Name);
+                cmd.Parameters.AddWithValue("@Age", student.Age);
 
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-                    return true;
+                cmd.ExecuteNonQuery();
             }
             catch (SqlException ex) when(ex.Number == 2627 || ex.Number == 2601)
             {
-                    // Unique constraint violation
-                    return false;
+                // Unique constraint violation
+                Console.Write(ex.Message);
             }
         }
         
@@ -98,42 +96,6 @@ namespace StudentManagementSystem.Services
 
                 return rowsAffected > 0;
             }
-        }
-        //** TEST: Test the SQL operations */
-        public void TestSQL()
-        {
-            // Insert
-            bool inserted = AddStudent(new Student(0, "TestUser", 25));
-            Console.WriteLine(inserted ? "Inserted" : "Duplicate");
-
-            // Update
-            bool updated = UpdateStudent(new Student(1, "UpdatedName", 30));
-            Console.WriteLine(updated ? "Updated" : "Not found");
-
-            // Delete
-            bool deleted = DeleteStudent(1);
-            Console.WriteLine(deleted ? "Deleted" : "Not found");
-        }
-        //** RUN: Run SQL tests */
-        public void RunSqlTests()
-        {
-            Console.WriteLine("---- SQL TEST START ----");
-
-            // 1. INSERT
-            var student = new Student(0, "Sql Test User", 22);
-            bool added = AddStudent(student);
-            Console.WriteLine(added ? "Insert OK" : "Insert FAILED (duplicate)");
-
-            // 2. READ
-            var students = GetAllStudents();
-            Console.WriteLine($"Total students in DB: {students.Count}");
-
-            foreach (var s in students)
-            {
-                Console.WriteLine($"{s.Id} | {s.Name} | {s.Age}");
-            }
-
-            Console.WriteLine("---- SQL TEST END ----");
         }
 
     }

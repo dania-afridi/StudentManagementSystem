@@ -170,8 +170,8 @@ namespace StudentManagementSystem.Services
         private void AddStudent()
         {
             Student student = GetStudentFromInput();
-            // Temporary: still save to file directly
-            fileService.SaveStudents(students);
+            StudentDbService db = new StudentDbService();
+            db.AddStudent(student);
             Console.WriteLine("Student added successfully!");
         }
 
