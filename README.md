@@ -42,6 +42,11 @@ persistent storage.
 - Switched student listing to read from SQL Server
 - Write operations still use existing storage
 
+### Week 2 Day 7
+- Migrated Add Student operation to SQL Server
+- Removed JSON write for student creation
+- SQL Server is now source of truth for ADD and READ
+
 ## How to Run
 1. Clone the repository
 2. Open solution in Visual Studio 2022
