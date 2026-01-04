@@ -28,24 +28,28 @@ persistent storage.
 - Week 1–2: JSON file storage using FileService
 - SQL Server integration introduced but not yet wired to menu
 
-## SQL Learning (Isolation)
+## SQL Learning 
+(Isolation):
 - Parameterized INSERT, UPDATE, DELETE
 - Unique constraint handling
 - Tested in StudentDbService only
  
-## SQL (Week 2 Day 5)
+(Week 2):
 - Implemented parameterized INSERT and SELECT using ADO.NET
 - Handled UNIQUE constraint violations safely
 - Tested SQL logic in isolation without affecting menu flow
 
-## SQL (Week 2 Day 6)
 - Switched student listing to read from SQL Server
 - Write operations still use existing storage
 
-### Week 2 Day 7
 - Migrated Add Student operation to SQL Server
 - Removed JSON write for student creation
 - SQL Server is now source of truth for ADD and READ
+
+(Week 3):
+- Migrated Update Student operation to SQL Server
+- Removed JSON-based update logic
+- SQL Server now handles update persistence
 
 ## How to Run
 1. Clone the repository

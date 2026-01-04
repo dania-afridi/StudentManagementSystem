@@ -63,22 +63,21 @@ namespace StudentManagementSystem.Services
         //** UPDATE: Update an existing student
         public bool UpdateStudent(Student student)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                string query =
-                    "UPDATE Students SET Name = @Name, Age = @Age WHERE Id = @Id";
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
 
-                SqlCommand command = new SqlCommand(query, connection);
+            string query = @"UPDATE Students
+                             SET Name = @Name, Age = @Age
+                             WHERE Id = @Id";
 
-                command.Parameters.AddWithValue("@Id", student.Id);
-                command.Parameters.AddWithValue("@Name", student.Name);
-                command.Parameters.AddWithValue("@Age", student.Age);
+            using SqlCommand cmd = new SqlCommand(query, connection);
 
-                connection.Open();
-                int rowsAffected = command.ExecuteNonQuery();
+            cmd.Parameters.AddWithValue("@Id", student.Id);
+            cmd.Parameters.AddWithValue("@Name", student.Name);
+            cmd.Parameters.AddWithValue("@Age", student.Age);
 
-                return rowsAffected > 0;
-            }
+            int rowsAffected = cmd.ExecuteNonQuery();
+            return rowsAffected > 0;
         }
 
         //** DELETE: Delete a student by ID

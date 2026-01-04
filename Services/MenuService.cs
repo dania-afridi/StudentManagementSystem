@@ -91,16 +91,6 @@ namespace StudentManagementSystem.Services
         //******* Get new student detail *********//
         private Student GetStudentFromInput()
         {
-            /*
-            int Id;
-            Console.Write("Enter Student Id: ");
-            ReadStudentId(out Id);
-            while (IsDuplicateId(Id))
-            {
-                Console.WriteLine("Id already exists. Try another.");
-                ReadStudentId(out Id);
-            }
-            */
             string Name;
             Console.Write("Enter Student Name: ");
             ReadStudentName(out Name);
@@ -260,8 +250,14 @@ namespace StudentManagementSystem.Services
             student.Name = name;
             student.Age = age;
 
-            fileService.SaveStudents(students);
-            Console.WriteLine("Student updated successfully.");
+            StudentDbService db = new StudentDbService();
+
+            bool updated = db.UpdateStudent(student);
+
+            if (updated)
+                Console.WriteLine("Student updated successfully.");
+            else
+                Console.WriteLine("Student not found.");
         }
 
         //******* Remove Student *********//
