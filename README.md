@@ -51,6 +51,10 @@ persistent storage.
 - Removed JSON-based update logic
 - SQL Server now handles update persistence
 
+- Migrated Delete Student operation to SQL Server
+- Removed JSON-based delete logic
+- Completed CRUD migration to SQL Server
+
 ## How to Run
 1. Clone the repository
 2. Open solution in Visual Studio 2022

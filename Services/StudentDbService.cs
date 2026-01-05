@@ -83,18 +83,17 @@ namespace StudentManagementSystem.Services
         //** DELETE: Delete a student by ID
         public bool DeleteStudent(int id)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                string query = "DELETE FROM Students WHERE Id = @Id";
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
 
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Id", id);
+            string query = "DELETE FROM Students WHERE Id = @Id";
 
-                connection.Open();
-                int rowsAffected = command.ExecuteNonQuery();
+            using SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@Id", id);
 
-                return rowsAffected > 0;
-            }
+            int rowsAffected = cmd.ExecuteNonQuery();
+
+            return rowsAffected > 0;
         }
 
     }

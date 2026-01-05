@@ -266,20 +266,19 @@ namespace StudentManagementSystem.Services
         {
             Console.Write("Enter Student Id to delete: ");
             ReadStudentId(out int id);
+
             StudentDbService db = new StudentDbService();
             var students = db.GetAllStudents();
+
             Student student = FindStudentById(id);
-            if (student == null)
-            {
+
+            bool deleted = db.DeleteStudent(id);
+
+            if (!deleted)
                 Console.WriteLine("Student not found.");
-                return;
-            }
-
-            students.Remove(student);
-            fileService.SaveStudents(students);
-            Console.WriteLine("Student deleted successfully.");
+            else
+                Console.WriteLine("Student deleted successfully.");
         }
-
 
     }
 }
