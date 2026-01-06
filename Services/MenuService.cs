@@ -5,44 +5,17 @@ using System.Text.RegularExpressions;
 
 namespace StudentManagementSystem.Services
 {
-    ///******* MenuService to handle user interactions *********//
+    /// Handles all user interactions and menu operations
     public class MenuService
     {
-        //******* Fields *********//
-        private readonly FileService fileService;
-        private List<Student> students;
-
-        //******* Test database read functionality *********//
-        private void TestDbRead()
-        {
-            StudentDbService dbService = new StudentDbService();
-            var students = dbService.GetAllStudents();
-
-            foreach (var student in students)
-            {
-                Console.WriteLine($"{student.Id} - {student.Name} - {student.Age}");
-            }
-        }
-
-        //******* Constructor to initialize FileService and load students *********//
+        // Empty constructor – no state to initialize 
         public MenuService()
         {
-             fileService = new FileService();
-            // students = fileService.LoadStudents();
-            StudentDbService db = new StudentDbService();
-            var students = db.GetAllStudents();
-
         }
 
-        //******* Start the menu loop *********//
+        //---- Entry point for menu loop ----//
         public void Start()
         {
-            //TestDbRead();
-           // StudentDbService db = new StudentDbService();
-
-           // db.AddStudent(new Student(0, "Test User", 25));
-            //db.UpdateStudent(new Student(1, "Updated Name", 30));
-            //db.DeleteStudent(5);
             bool running = true;
 
             while (running)
@@ -76,7 +49,6 @@ namespace StudentManagementSystem.Services
                 }
             }
         }
-        //******* Display menu options *********//
         private void ShowMenu()
         {
             Console.WriteLine("1. Add student");
@@ -88,35 +60,29 @@ namespace StudentManagementSystem.Services
             Console.Write("Select option: ");
         }
 
-        //******* Get new student detail *********//
+        // ---------------- INPUT HELPERS ----------------
         private Student GetStudentFromInput()
         {
-            string Name;
             Console.Write("Enter Student Name: ");
-            ReadStudentName(out Name);
+            ReadStudentName(out string name);
 
-            int Age;
             Console.Write("Enter Student Age: ");
-            ReadStudentAge(out Age);
+            ReadStudentAge(out int age);
 
-            return new Student(0, Name, Age);
+            return new Student(0, name, age);
         }
-        //******* Read student Id *********//
+        //---- Read Id
         private void ReadStudentId(out int id)
         {
             while (true)
             {
-                if(!(int.TryParse(Console.ReadLine(), out id) && id > 0))
-                {
-                    Console.WriteLine("Invalid Id. Enter a positive number."); 
-                }
-                else
-                {
-                    break;
-                }
+                if(int.TryParse(Console.ReadLine(), out id) && id > 0)
+                    return;
+
+                Console.WriteLine("Invalid Id. Enter a positive number.");
             }
         }
-        //******* Read student Name *********//
+        //---- Read Name 
         private void ReadStudentName(out string name)
         {
             while (true)
@@ -135,50 +101,50 @@ namespace StudentManagementSystem.Services
                     continue;
                 }
 
-                int letterCount = name.Replace(" ", "").Length;
-                if (letterCount < 3)
+                if(name.Replace(" ", "").Length < 3)
                 {
                     Console.WriteLine("Name must contain at least 3 letters.");
                     continue;
                 }
 
-                break;
+                return;
             }
         }
-        //******* Read student Age *********//
+        //---- Read Age
         private void ReadStudentAge(out int age)
         {
             while (true)
             {
                 if (int.TryParse(Console.ReadLine(), out age) && age > 0)
-                    break;
+                    return;
 
                 Console.WriteLine("Invalid age. Enter a positive number.");
             }
         }
-        //******* Add a new student *********//
+        // ---------------- CRUD OPERATIONS ----------------
         private void AddStudent()
         {
             Student student = GetStudentFromInput();
             StudentDbService db = new StudentDbService();
+
             db.AddStudent(student);
             Console.WriteLine("Student added successfully!");
         }
 
-        //******* List of students sort by Name *********//
+        //---- List students by Name 
+
         private void ListStudents()
         {
             StudentDbService db = new StudentDbService();
             var students = db.GetAllStudents();
 
-            if (students == null || students.Count == 0)
+            if (students == null || !students.Any())
             {
                 Console.WriteLine("No students found.");
                 return;
             }
-            var orderedStudents = students
-           .OrderBy(s => s.Name)
-           .ToList();
+
+            var orderedStudents = students.OrderBy(s => s.Name);
 
             Console.WriteLine("\n--- Student List ---");
 
@@ -187,25 +153,12 @@ namespace StudentManagementSystem.Services
                 Console.WriteLine($"Id: {student.Id} | Name: {student.Name} | Age: {student.Age}");
             }
         }
-        //******* Find student by Id *********//
-        private Student FindStudentById(int id)
-        {
-            StudentDbService db = new StudentDbService();
-            var students = db.GetAllStudents();
-            return students.FirstOrDefault(s => s.Id == id);
-        }
-
-        //******* List of students filter by age *********//
+        
+        //---- List of students filter by age
         private void ListStudentsAboveAge()
         {
-            int minAge;
-            while (true)
-            {
-                Console.Write("Enter minimum age: ");
-                ReadStudentAge(out minAge);
-
-                break;
-            }
+            Console.Write("Enter minimum age: ");
+            ReadStudentAge(out int minAge);
 
             StudentDbService db = new StudentDbService();
             var students = db.GetAllStudents();
@@ -227,8 +180,16 @@ namespace StudentManagementSystem.Services
                     $"Id: {student.Id} | Name: {student.Name} | Age: {student.Age}");
             }
         }
+        //---- Find student by Id 
+        private Student FindStudentById(int id)
+        {
+            StudentDbService db = new StudentDbService();
+            var students = db.GetAllStudents();
 
-        //******* Update Student *********//
+            return students.FirstOrDefault(s => s.Id == id);
+        }
+
+        //---- Update Student 
         private void UpdateStudent()
         {
             Console.Write("Enter Student Id to update: ");
@@ -251,16 +212,14 @@ namespace StudentManagementSystem.Services
             student.Age = age;
 
             StudentDbService db = new StudentDbService();
-
             bool updated = db.UpdateStudent(student);
 
-            if (updated)
-                Console.WriteLine("Student updated successfully.");
-            else
-                Console.WriteLine("Student not found.");
+            Console.WriteLine(updated 
+                ? "Student updated successfully."
+                : "Student not found.");
         }
 
-        //******* Remove Student *********//
+        //---- Delete Student
 
         private void DeleteStudent()
         {
@@ -268,16 +227,11 @@ namespace StudentManagementSystem.Services
             ReadStudentId(out int id);
 
             StudentDbService db = new StudentDbService();
-            var students = db.GetAllStudents();
-
-            Student student = FindStudentById(id);
-
             bool deleted = db.DeleteStudent(id);
 
-            if (!deleted)
-                Console.WriteLine("Student not found.");
-            else
-                Console.WriteLine("Student deleted successfully.");
+            Console.WriteLine(deleted
+                ? "Student not found."
+                : "Student deleted successfully.");
         }
 
     }

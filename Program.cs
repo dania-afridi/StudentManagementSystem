@@ -6,8 +6,5 @@ class Program
     {
         MenuService menuService = new MenuService();
         menuService.Start();
-
-       // StudentDbService db = new StudentDbService();
-       // db.RunSqlTests();
     }
 }
