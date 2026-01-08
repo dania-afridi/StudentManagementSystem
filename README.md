@@ -58,6 +58,8 @@ persistent storage.
 - Introduced dependency injection using IDataService
 - Decoupled MenuService from SQL implementation
 - Improved testability and flexibility
+- Age validation aligned with SQL CHECK constraint (Age >= 3)
+
 
 ## How to Run
 1. Clone the repository

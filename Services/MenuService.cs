@@ -118,10 +118,10 @@ namespace StudentManagementSystem.Services
         {
             while (true)
             {
-                if (int.TryParse(Console.ReadLine(), out age) && age > 0)
+                if (int.TryParse(Console.ReadLine(), out age) && age >=3)
                     return;
 
-                Console.WriteLine("Invalid age. Enter a positive number.");
+                Console.WriteLine("Invalid age. Age must be positive and at least 3 years.");
             }
         }
         // ---------------- CRUD OPERATIONS ----------------
