@@ -8,9 +8,12 @@ namespace StudentManagementSystem.Services
     /// Handles all user interactions and menu operations
     public class MenuService
     {
+        private readonly IDataService dataService;
+
         // Empty constructor – no state to initialize 
-        public MenuService()
+        public MenuService(IDataService dataService)
         {
+            this.dataService = dataService;
         }
 
         //---- Entry point for menu loop ----//
@@ -125,9 +128,7 @@ namespace StudentManagementSystem.Services
         private void AddStudent()
         {
             Student student = GetStudentFromInput();
-            StudentDbService db = new StudentDbService();
-
-            db.AddStudent(student);
+            dataService.AddStudent(student);
             Console.WriteLine("Student added successfully!");
         }
 
@@ -135,8 +136,7 @@ namespace StudentManagementSystem.Services
 
         private void ListStudents()
         {
-            StudentDbService db = new StudentDbService();
-            var students = db.GetAllStudents();
+            var students = dataService.GetAllStudents();
 
             if (students == null || !students.Any())
             {
@@ -160,8 +160,7 @@ namespace StudentManagementSystem.Services
             Console.Write("Enter minimum age: ");
             ReadStudentAge(out int minAge);
 
-            StudentDbService db = new StudentDbService();
-            var students = db.GetAllStudents();
+            var students = dataService.GetAllStudents();
 
             var result = students
                 .Where(s => s.Age >= minAge)
@@ -183,8 +182,7 @@ namespace StudentManagementSystem.Services
         //---- Find student by Id 
         private Student FindStudentById(int id)
         {
-            StudentDbService db = new StudentDbService();
-            var students = db.GetAllStudents();
+            var students = dataService.GetAllStudents();
 
             return students.FirstOrDefault(s => s.Id == id);
         }
@@ -211,8 +209,7 @@ namespace StudentManagementSystem.Services
             student.Name = name;
             student.Age = age;
 
-            StudentDbService db = new StudentDbService();
-            bool updated = db.UpdateStudent(student);
+            bool updated = dataService.UpdateStudent(student);
 
             Console.WriteLine(updated 
                 ? "Student updated successfully."
@@ -226,8 +223,7 @@ namespace StudentManagementSystem.Services
             Console.Write("Enter Student Id to delete: ");
             ReadStudentId(out int id);
 
-            StudentDbService db = new StudentDbService();
-            bool deleted = db.DeleteStudent(id);
+            bool deleted = dataService.DeleteStudent(id);
 
             Console.WriteLine(deleted
                 ? "Student not found."

@@ -55,6 +55,10 @@ persistent storage.
 - Removed JSON-based delete logic
 - Completed CRUD migration to SQL Server
 
+- Introduced dependency injection using IDataService
+- Decoupled MenuService from SQL implementation
+- Improved testability and flexibility
+
 ## How to Run
 1. Clone the repository
 2. Open solution in Visual Studio 2022

@@ -4,7 +4,8 @@ class Program
 {
     static void Main()
     {
-        MenuService menuService = new MenuService();
-        menuService.Start();
+        IDataService dataService = new StudentDbService();
+        MenuService menu = new MenuService(dataService);
+        menu.Start();
     }
 }
