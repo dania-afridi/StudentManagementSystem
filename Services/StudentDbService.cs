@@ -3,7 +3,7 @@ using StudentManagementSystem.Models;
 
 namespace StudentManagementSystem.Services
 {
-    public class StudentDbService
+    public class StudentDbService : IDataService
     {
         private readonly string connectionString =
             "Server=localhost;Database=StudentManagementDB;Trusted_Connection=True;TrustServerCertificate=True;";
