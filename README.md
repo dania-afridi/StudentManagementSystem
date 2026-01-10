@@ -29,12 +29,12 @@ persistent storage.
 - SQL Server integration introduced but not yet wired to menu
 
 ## SQL Learning 
-(Isolation):
+### Week 1 (Isolation):
 - Parameterized INSERT, UPDATE, DELETE
 - Unique constraint handling
 - Tested in StudentDbService only
  
-(Week 2):
+### Week 2:
 - Implemented parameterized INSERT and SELECT using ADO.NET
 - Handled UNIQUE constraint violations safely
 - Tested SQL logic in isolation without affecting menu flow
@@ -46,7 +46,7 @@ persistent storage.
 - Removed JSON write for student creation
 - SQL Server is now source of truth for ADD and READ
 
-(Week 3):
+### Week 3:
 - Migrated Update Student operation to SQL Server
 - Removed JSON-based update logic
 - SQL Server now handles update persistence
@@ -60,6 +60,8 @@ persistent storage.
 - Improved testability and flexibility
 - Age validation aligned with SQL CHECK constraint (Age >= 3)
 
+### Week 4:
+- Added fake data service for unit testing without database
 
 ## How to Run
 1. Clone the repository
